@@ -13,11 +13,17 @@ public class ServerChat{
 
         try {
             serverSocket = new ServerSocket(port);
-            while(true) {
+            System.out.println("\nServer is running on " + serverSocket.getInetAddress() + ":" + serverSocket.getLocalPort() + "\n");
+                System.out.println("\n\nWaiting for a client...\n");
                 socket = serverSocket.accept();
                 bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-                System.out.println(bufferedReader.readLine() + socket.toString());
+                System.out.println("Client " + bufferedReader.readLine().toUpperCase() + " connected");
+            while(true) {
+                bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                System.out.println(bufferedReader.readLine());
             }
-        } catch (Throwable th) { }
+        } catch (Throwable th) {
+            System.out.println(th);
+        }
     }
 }
